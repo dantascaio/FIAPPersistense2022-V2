@@ -1,38 +1,68 @@
 package br.com.fiap.persistense.model;
 
-import javax.persistence.Column;
+import java.io.Serializable;
+
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "pedido")
-public class Pedido {
+public class Pedido implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Integer id;
+	private static final long serialVersionUID = 1L;
 
-    @Column(name = "descricao")
-    private String descricao;
+	@EmbeddedId
+	private PedidoPK pedidoPK;
 
-    public Integer getId() {
-        return id;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cd_cli")
+	private Cliente cliente;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "nr_seql_end")
+	private Endereco endereco;
 
-    public String getDescricao() {
-        return descricao;
-    }
+	@JoinColumn(name = "qtde_prd_pedidos")
+	private int quatidade;
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+	public PedidoPK getPedidoPK() {
+		return pedidoPK;
+	}
+
+	public void setPedidoPK(PedidoPK pedidoPK) {
+		this.pedidoPK = pedidoPK;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	public int getQuatidade() {
+		return quatidade;
+	}
+
+	public void setQuatidade(int quatidade) {
+		this.quatidade = quatidade;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 }

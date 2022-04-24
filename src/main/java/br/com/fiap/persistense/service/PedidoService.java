@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.fiap.persistense.model.Pedido;
+import br.com.fiap.persistense.model.PedidoPK;
 import br.com.fiap.persistense.repository.PedidoRepository;
 
 @Service
@@ -19,11 +20,11 @@ public class PedidoService {
         return pedidoRepository.findAll();
     }
 
-    public Optional<Pedido> consultarPedido(final Integer id) {
+    public Optional<Pedido> consultarPedido(final PedidoPK id) {
         return pedidoRepository.findById(id);
     }
 
-    public void deletarPedido(final Integer id) {
+    public void deletarPedido(final PedidoPK id) {
         pedidoRepository.deleteById(id);
     }
 
