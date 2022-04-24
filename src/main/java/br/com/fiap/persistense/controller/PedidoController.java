@@ -1,5 +1,8 @@
 package br.com.fiap.persistense.controller;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,18 +26,19 @@ public class PedidoController {
     PedidoService pedidoService;
 
     @GetMapping("/pedidos")
-    public String listarPedidos() {
-        return pedidoService.listarPedidos();
+    public ResponseEntity<List<Pedido>> listarPedidos() {
+        return new ResponseEntity<List<Pedido>>(pedidoService.listarPedidos(), HttpStatus.OK);
     }
 
     @GetMapping("/pedidos/{id}")
-    public String consultarPedido(@PathVariable("id") int id) {
-        return pedidoService.consultarPedido(id);
+    public ResponseEntity<Optional<Pedido>> consultarPedido(@PathVariable("id") final Integer id) {
+        return new ResponseEntity<Optional<Pedido>> (pedidoService.consultarPedido(id), HttpStatus.OK) ;
     }
 
     @DeleteMapping("/pedidos/{id}")
-    public String deletarPedido(@PathVariable("id") int id) {
-        return pedidoService.deletarPedido(id);
+    public String deletarPedido(@PathVariable("id") final Integer id) {
+        pedidoService.deletarPedido(id);
+        return HttpStatus.OK.name();
     }
 
     @PostMapping("/pedidos")
@@ -43,7 +47,7 @@ public class PedidoController {
     }
 
     @PutMapping("/pedidos")
-    public String atualizarPedido() {
-        return pedidoService.atualizarPedido();
+    public ResponseEntity<Pedido> atualizarPedido(@RequestBody final Pedido pedido) {
+        return new ResponseEntity<Pedido>(pedidoService.atualizarPedido(pedido), HttpStatus.OK);
     }
 }

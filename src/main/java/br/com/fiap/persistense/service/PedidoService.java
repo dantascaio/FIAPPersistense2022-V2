@@ -1,5 +1,8 @@
 package br.com.fiap.persistense.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,23 +15,23 @@ public class PedidoService {
     @Autowired
     PedidoRepository pedidoRepository;
 
-    public String listarPedidos() {
-        return "listaPedidos";
+    public List<Pedido> listarPedidos() {
+        return pedidoRepository.findAll();
     }
 
-    public String consultarPedido(int id) {
-        return "consultaPedido";
+    public Optional<Pedido> consultarPedido(final Integer id) {
+        return pedidoRepository.findById(id);
     }
 
-    public String deletarPedido(int id) {
-        return "deletaPedido";
+    public void deletarPedido(final Integer id) {
+        pedidoRepository.deleteById(id);
     }
 
     public Pedido salvarPedido(final Pedido pedido) {
         return pedidoRepository.save(pedido);
     }
 
-    public String atualizarPedido() {
-        return "atualizaPedido";
+    public Pedido atualizarPedido(Pedido pedido) {
+        return pedidoRepository.save(pedido);
     }
 }
