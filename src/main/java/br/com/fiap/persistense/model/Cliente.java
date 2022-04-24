@@ -1,5 +1,6 @@
 package br.com.fiap.persistense.model;
 
+import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -15,46 +16,51 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "cliente")
-public class Cliente {
+public class Cliente implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "cd_cli")
-	private int id;
+	@Column(name = "codigo")
+	private Integer codigo;
 
-	@Column(name = "tip_cpf_cgc")
-	private int tipoPessoa;
+	@Column(name = "tipo")
+	private Integer tipo;
 
-	@Column(name = "nr_cpf_cgc")
-	private int cpfCNPJ;
+	@Column(name = "cpf_cnpj")
+	private Long cpfCnpj;
 
-	@Column(name = "nm_cliente")
+	@Column(name = "nome")
 	private String nome;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
+	private Set<Pedido> pedidos = new LinkedHashSet<Pedido>();
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
 	private Set<Endereco> enderecos = new LinkedHashSet<Endereco>();
 
-	public int getId() {
-		return id;
+	public Integer getCodigo() {
+		return codigo;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
 	}
 
-	public int getTipoPessoa() {
-		return tipoPessoa;
+	public Integer getTipo() {
+		return tipo;
 	}
 
-	public void setTipoPessoa(int tipoPessoa) {
-		this.tipoPessoa = tipoPessoa;
+	public void setTipo(Integer tipo) {
+		this.tipo = tipo;
 	}
 
-	public int getCpfCNPJ() {
-		return cpfCNPJ;
+	public Long getCpfCnpj() {
+		return cpfCnpj;
 	}
 
-	public void setCpfCNPJ(int cpfCNPJ) {
-		this.cpfCNPJ = cpfCNPJ;
+	public void setCpfCnpj(Long cpfCnpj) {
+		this.cpfCnpj = cpfCnpj;
 	}
 
 	public String getNome() {
@@ -63,6 +69,14 @@ public class Cliente {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public Set<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(Set<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	public Set<Endereco> getEnderecos() {

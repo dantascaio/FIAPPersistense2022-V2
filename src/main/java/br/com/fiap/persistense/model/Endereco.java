@@ -1,5 +1,7 @@
 package br.com.fiap.persistense.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,53 +14,65 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "endereco")
-public class Endereco {
+public class Endereco implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "cliente_cd_cli")
-	private int id;
+	@Column(name = "id")
+	private Integer id;
 
-	@Column(name = "nr_seql_end")
-	private int sequencial;
+	@Column(name = "rua")
+	private String rua;
 
-	@Column(name = "nr_cep")
-	private int cep;
+	@Column(name = "cidade")
+	private String cidade;
 
-	@Column(name = "nm_logadouro")
+	@Column(name = "cep")
+	private Integer cep;
+
+	@Column(name = "logradouro")
 	private String logadouro;
 
 	@Column(name = "complemento")
 	private String complemento;
 
 	@Column(name = "numero")
-	private int numero;
+	private Integer numero;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "codigo_cliente")
 	private Cliente cliente;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public int getSequencial() {
-		return sequencial;
+	public String getRua() {
+		return rua;
 	}
 
-	public void setSequencial(int sequencial) {
-		this.sequencial = sequencial;
+	public void setRua(String rua) {
+		this.rua = rua;
 	}
 
-	public int getCep() {
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public Integer getCep() {
 		return cep;
 	}
 
-	public void setCep(int cep) {
+	public void setCep(Integer cep) {
 		this.cep = cep;
 	}
 
@@ -78,12 +92,20 @@ public class Endereco {
 		this.complemento = complemento;
 	}
 
-	public int getNumero() {
+	public Integer getNumero() {
 		return numero;
 	}
 
-	public void setNumero(int numero) {
+	public void setNumero(Integer numero) {
 		this.numero = numero;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 }

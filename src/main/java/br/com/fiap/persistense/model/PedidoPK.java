@@ -9,26 +9,26 @@ import javax.persistence.Embeddable;
 public class PedidoPK implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "nr_unco_pedido")
-	private int codigo;
+	@Column(name = "codigo_pedido")
+	private int codigoPedido;
 
-	@Column(name = "cd_prd")
+	@Column(name = "codigo_produto")
 	private int produto;
 
 	public PedidoPK() {
 	}
 
-	public PedidoPK(int codigo, int produto) {
-		this.codigo = codigo;
+	public PedidoPK(int codigoPedido, int produto) {
+		this.codigoPedido = codigoPedido;
 		this.produto = produto;
 	}
 
-	public int getCodigo() {
-		return codigo;
+	public int getCodigoPedido() {
+		return codigoPedido;
 	}
 
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
+	public void setCodigoPedido(int codigoPedido) {
+		this.codigoPedido = codigoPedido;
 	}
 
 	public int getProduto() {
@@ -39,23 +39,4 @@ public class PedidoPK implements Serializable {
 		this.produto = produto;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof PedidoPK) {
-			PedidoPK pk = (PedidoPK) o;
-			if (this.getCodigo() != pk.getCodigo()) {
-				return false;
-			}
-			if (this.getProduto() != pk.getProduto()) {
-				return false;
-			}
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public int hashCode() {
-		return this.getProduto() + this.getCodigo();
-	}
 }
