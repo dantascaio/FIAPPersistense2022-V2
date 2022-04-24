@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.persistense.model.Pedido;
-import br.com.fiap.persistense.model.PedidoPK;
 import br.com.fiap.persistense.service.PedidoService;
 
 @RestController
@@ -33,14 +32,12 @@ public class PedidoController {
 
     @GetMapping("/pedidos/{id}")
     public ResponseEntity<Optional<Pedido>> consultarPedido(@PathVariable("id") final Integer id) {
-        final PedidoPK primaryKey = new PedidoPK(1, 1);
-        return new ResponseEntity<Optional<Pedido>> (pedidoService.consultarPedido(primaryKey), HttpStatus.OK);
+        return new ResponseEntity<Optional<Pedido>> (pedidoService.consultarPedido(id), HttpStatus.OK);
     }
 
     @DeleteMapping("/pedidos/{id}")
     public String deletarPedido(@PathVariable("id") final Integer id) {
-        final PedidoPK primaryKey = new PedidoPK(1, 1);
-        pedidoService.deletarPedido(primaryKey);
+        pedidoService.deletarPedido(id);
         return HttpStatus.OK.name();
     }
 
