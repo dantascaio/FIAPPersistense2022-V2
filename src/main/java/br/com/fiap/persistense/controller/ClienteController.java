@@ -42,13 +42,13 @@ public class ClienteController {
     }
 
     @PostMapping()
-    public ResponseEntity<Cliente> salvarCliente(@RequestBody final Cliente Cliente) {
-        return new ResponseEntity<Cliente>(clienteService.salvarCliente(Cliente), HttpStatus.CREATED);
+    public ResponseEntity<Cliente> salvarCliente(@RequestBody final Cliente cliente) {
+        return new ResponseEntity<Cliente>(clienteService.salvarCliente(cliente), HttpStatus.CREATED);
     }
 
-    @PutMapping()
-    public ResponseEntity<Cliente> atualizarCliente(@RequestBody final Cliente Cliente) {
-        return new ResponseEntity<Cliente>(clienteService.atualizarCliente(Cliente), HttpStatus.OK);
+    @PutMapping("/{id}")
+    public ResponseEntity<Cliente> atualizarCliente(@PathVariable("id") final Integer id, @RequestBody final Cliente cliente) {
+        return new ResponseEntity<Cliente>(clienteService.atualizarCliente(cliente), HttpStatus.OK);
     }
     
 }

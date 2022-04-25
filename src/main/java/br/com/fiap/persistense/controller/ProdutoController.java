@@ -42,13 +42,13 @@ public class ProdutoController {
     }
 
     @PostMapping()
-    public ResponseEntity<Produto> salvarProduto(@RequestBody final Produto Produto) {
-        return new ResponseEntity<Produto>(produtoService.salvarProduto(Produto), HttpStatus.CREATED);
+    public ResponseEntity<Produto> salvarProduto(@RequestBody final Produto produto) {
+        return new ResponseEntity<Produto>(produtoService.salvarProduto(produto), HttpStatus.CREATED);
     }
 
-    @PutMapping()
-    public ResponseEntity<Produto> atualizarProduto(@RequestBody final Produto Produto) {
-        return new ResponseEntity<Produto>(produtoService.atualizarProduto(Produto), HttpStatus.OK);
+    @PutMapping("/{id}")
+    public ResponseEntity<Produto> atualizarProduto(@PathVariable("id") final Integer id, @RequestBody final Produto produto) {
+        return new ResponseEntity<Produto>(produtoService.atualizarProduto(produto), HttpStatus.OK);
     }
     
 }
