@@ -110,4 +110,10 @@ public class Endereco implements Serializable {
 		this.cliente = cliente;
 	}
 
+	@Override
+	public String toString() {
+		return "Endereco [cep=" + cep + ", cidade=" + cidade + ", cliente=" + cliente + ", complemento=" + complemento
+				+ ", id=" + id + ", logadouro=" + logadouro + ", numero=" + numero + ", rua=" + rua + "]";
+	}
+
 }

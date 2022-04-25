@@ -89,4 +89,10 @@ public class Cliente implements Serializable {
 		this.enderecos = enderecos;
 	}
 
+	@Override
+	public String toString() {
+		return "Cliente [codigo=" + codigo + ", cpfCnpj=" + cpfCnpj + ", enderecos=" + enderecos + ", nome=" + nome
+				+ ", pedidos=" + pedidos + ", tipo=" + tipo + "]";
+	}
+
 }

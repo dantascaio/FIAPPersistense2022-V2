@@ -68,4 +68,10 @@ public class Produto implements Serializable {
 		this.quantidade = quantidade;
 	}
 
+	@Override
+	public String toString() {
+		return "Produto [codigo=" + codigo + ", nome=" + nome + ", pedidos=" + pedidos + ", quantidade=" + quantidade
+				+ ", valor=" + valor + "]";
+	}
+
 }

@@ -30,10 +30,7 @@ public class Pedido implements Serializable {
 	private Integer codigo;
 
 	@ManyToMany
-	@JoinTable(
-		name = "pedido_produto", 
-		joinColumns = @JoinColumn(name = "codigo_pedido"), 
-		inverseJoinColumns = @JoinColumn(name = "codigo_produto"))
+	@JoinTable(name = "pedido_produto", joinColumns = @JoinColumn(name = "codigo_pedido"), inverseJoinColumns = @JoinColumn(name = "codigo_produto"))
 	private Set<Produto> produtos = new LinkedHashSet<Produto>();
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -46,5 +43,51 @@ public class Pedido implements Serializable {
 
 	@Column(name = "quantidade_produtos")
 	private int quatidadeProdutos;
+
+	public Integer getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
+	}
+
+	public Set<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(Set<Produto> produtos) {
+		this.produtos = produtos;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	public int getQuatidadeProdutos() {
+		return quatidadeProdutos;
+	}
+
+	public void setQuatidadeProdutos(int quatidadeProdutos) {
+		this.quatidadeProdutos = quatidadeProdutos;
+	}
+
+	@Override
+	public String toString() {
+		return "Pedido [cliente=" + cliente + ", codigo=" + codigo + ", endereco=" + endereco + ", produtos=" + produtos
+				+ ", quatidadeProdutos=" + quatidadeProdutos + "]";
+	}
 
 }
