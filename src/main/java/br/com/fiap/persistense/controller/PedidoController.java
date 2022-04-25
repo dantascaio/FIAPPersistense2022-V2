@@ -19,34 +19,34 @@ import br.com.fiap.persistense.model.Pedido;
 import br.com.fiap.persistense.service.PedidoService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/pedidos")
 public class PedidoController {
 
     @Autowired
     PedidoService pedidoService;
 
-    @GetMapping("/pedidos")
+    @GetMapping()
     public ResponseEntity<List<Pedido>> listarPedidos() {
         return new ResponseEntity<List<Pedido>>(pedidoService.listarPedidos(), HttpStatus.OK);
     }
 
-    @GetMapping("/pedidos/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Optional<Pedido>> consultarPedido(@PathVariable("id") final Integer id) {
         return new ResponseEntity<Optional<Pedido>> (pedidoService.consultarPedido(id), HttpStatus.OK);
     }
 
-    @DeleteMapping("/pedidos/{id}")
+    @DeleteMapping("/{id}")
     public String deletarPedido(@PathVariable("id") final Integer id) {
         pedidoService.deletarPedido(id);
         return HttpStatus.OK.name();
     }
 
-    @PostMapping("/pedidos")
+    @PostMapping()
     public ResponseEntity<Pedido> salvarPedido(@RequestBody final Pedido pedido) {
         return new ResponseEntity<Pedido>(pedidoService.salvarPedido(pedido), HttpStatus.CREATED);
     }
 
-    @PutMapping("/pedidos")
+    @PutMapping()
     public ResponseEntity<Pedido> atualizarPedido(@RequestBody final Pedido pedido) {
         return new ResponseEntity<Pedido>(pedidoService.atualizarPedido(pedido), HttpStatus.OK);
     }
