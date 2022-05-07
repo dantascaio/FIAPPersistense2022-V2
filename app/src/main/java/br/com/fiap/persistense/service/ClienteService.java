@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 import br.com.fiap.persistense.model.Cliente;
@@ -15,9 +19,11 @@ public class ClienteService {
     @Autowired
     ClienteRepository clienteRepository;
 
+    @Cacheable(value= "allClientesCache", unless= "#result.size() == 0")
     public List<Cliente> listarClientes() {
         return clienteRepository.findAll();
     }
+
 
     public Optional<Cliente> consultarCliente(final Integer id) {
         return clienteRepository.findById(id);
@@ -27,6 +33,10 @@ public class ClienteService {
         clienteRepository.deleteById(id);
     }
 
+    @Caching(
+            put= { @CachePut(value= "clienteCache", key= "#cliente.codigo") },
+            evict= { @CacheEvict(value= "allClientesCache", allEntries= true) }
+    )
     public Cliente salvarCliente(final Cliente cliente) {
         return clienteRepository.save(cliente);
     }
