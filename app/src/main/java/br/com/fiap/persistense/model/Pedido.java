@@ -17,9 +17,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @SequenceGenerator(name = "SEQ_PEDIDO", sequenceName = "S_PEDIDO", allocationSize = 1)
 @Table(name = "pedido")
+// @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Pedido implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -33,6 +37,7 @@ public class Pedido implements Serializable {
 	@JoinTable(name = "pedido_produto", joinColumns = @JoinColumn(name = "codigo_pedido"), inverseJoinColumns = @JoinColumn(name = "codigo_produto"))
 	private Set<Produto> produtos = new LinkedHashSet<Produto>();
 
+	// @JsonManagedReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_cliente")
 	private Cliente cliente;
