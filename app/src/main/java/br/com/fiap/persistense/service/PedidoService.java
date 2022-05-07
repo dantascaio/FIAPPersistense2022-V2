@@ -24,10 +24,17 @@ public class PedidoService {
         return pedidoRepository.findAll();
     }
 
+    @Cacheable(value= "pedidoCache", key= "#id")
     public Optional<Pedido> consultarPedido(final Integer id) {
         return pedidoRepository.findById(id);
     }
 
+    @Caching(
+            evict= {
+                    @CacheEvict(value= "pedidoCache", key= "#id"),
+                    @CacheEvict(value= "allPedidosCache", allEntries= true)
+            }
+    )
     public void deletarPedido(final Integer id) {
         pedidoRepository.deleteById(id);
     }
@@ -40,6 +47,10 @@ public class PedidoService {
         return pedidoRepository.save(pedido);
     }
 
+    @Caching(
+            put= { @CachePut(value= "pedidoCache", key= "#pedido.codigo") },
+            evict= { @CacheEvict(value= "allPedidosCache", allEntries= true) }
+    )
     public Pedido atualizarPedido(Pedido pedido) {
         return pedidoRepository.save(pedido);
     }
