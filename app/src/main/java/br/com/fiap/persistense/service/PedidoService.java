@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 import br.com.fiap.persistense.model.Pedido;
@@ -15,6 +19,7 @@ public class PedidoService {
     @Autowired
     PedidoRepository pedidoRepository;
 
+    @Cacheable(value= "allPedidosCache", unless= "#result.size() == 0")
     public List<Pedido> listarPedidos() {
         return pedidoRepository.findAll();
     }
@@ -27,6 +32,10 @@ public class PedidoService {
         pedidoRepository.deleteById(id);
     }
 
+    @Caching(
+            put= { @CachePut(value= "pedidoCache", key= "#pedido.codigo") },
+            evict= { @CacheEvict(value= "allPedidosCache", allEntries= true) }
+    )
     public Pedido salvarPedido(final Pedido pedido) {
         return pedidoRepository.save(pedido);
     }
