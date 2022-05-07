@@ -15,9 +15,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @SequenceGenerator(name = "SEQ_CLIENTE", sequenceName = "S_CLIENTE", allocationSize = 1)
 @Table(name = "cliente")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -35,9 +40,11 @@ public class Cliente implements Serializable {
 	@Column(name = "nome")
 	private String nome;
 
+	@JsonBackReference
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
 	private Set<Pedido> pedidos = new LinkedHashSet<Pedido>();
 
+	@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cliente")
 	private Set<Endereco> enderecos = new LinkedHashSet<Endereco>();
 
@@ -89,10 +96,11 @@ public class Cliente implements Serializable {
 		this.enderecos = enderecos;
 	}
 
-	@Override
-	public String toString() {
-		return "Cliente [codigo=" + codigo + ", cpfCnpj=" + cpfCnpj + ", enderecos=" + enderecos + ", nome=" + nome
-				+ ", pedidos=" + pedidos + ", tipo=" + tipo + "]";
-	}
+	// @Override
+	// public String toString() {
+	// return "Cliente [codigo=" + codigo + ", cpfCnpj=" + cpfCnpj + ", enderecos="
+	// + enderecos + ", nome=" + nome
+	// + ", pedidos=" + pedidos + ", tipo=" + tipo + "]";
+	// }
 
 }

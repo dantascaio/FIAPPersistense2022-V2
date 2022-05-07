@@ -13,9 +13,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @SequenceGenerator(name = "SEQ_ENDERECO", sequenceName = "S_ENDERECO", allocationSize = 1)
 @Table(name = "endereco")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Endereco implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -42,6 +48,7 @@ public class Endereco implements Serializable {
 	@Column(name = "numero")
 	private Integer numero;
 
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_cliente")
 	private Cliente cliente;
