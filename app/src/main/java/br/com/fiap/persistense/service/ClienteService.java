@@ -25,10 +25,17 @@ public class ClienteService {
     }
 
 
+    @Cacheable(value= "clienteCache", key= "#id")
     public Optional<Cliente> consultarCliente(final Integer id) {
         return clienteRepository.findById(id);
     }
 
+    @Caching(
+            evict= {
+                    @CacheEvict(value= "clienteCache", key= "#id"),
+                    @CacheEvict(value= "allClientesCache", allEntries= true)
+            }
+    )
     public void deletarCliente(final Integer id) {
         clienteRepository.deleteById(id);
     }
@@ -41,6 +48,10 @@ public class ClienteService {
         return clienteRepository.save(cliente);
     }
 
+    @Caching(
+            put= { @CachePut(value= "clienteCache", key= "#cliente.codigo") },
+            evict= { @CacheEvict(value= "allClientesCache", allEntries= true) }
+    )
     public Cliente atualizarCliente(Cliente cliente) {
         return clienteRepository.save(cliente);
     }
