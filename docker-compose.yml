@@ -4,12 +4,19 @@ services:
     image: mysql:latest
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=test
+      - MYSQL_DATABASE=root
     ports:
       - 127.0.0.1:3306:3306
+  cache:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --loglevel warning
   app:
     depends_on:
       - mysqldb
+      - cache
     build: ./app
     ports:
       - 8080:8080

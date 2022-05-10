@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @SequenceGenerator(name = "SEQ_PEDIDO", sequenceName = "S_PEDIDO", allocationSize = 1)
 @Table(name = "pedido")
-// @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" }) // APAGAR?
 public class Pedido implements Serializable {
 
 	private static final long serialVersionUID = 1L;
